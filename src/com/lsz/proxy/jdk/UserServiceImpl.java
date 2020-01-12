@@ -13,7 +13,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void printUser(User user) {
-        System.out.println(1111111);
-//        System.out.println(user);
+        System.out.println(user);
     }
 }

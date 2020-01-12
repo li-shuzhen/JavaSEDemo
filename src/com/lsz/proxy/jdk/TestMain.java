@@ -14,13 +14,10 @@ public class TestMain {
         MyInterceptor myInterceptor = new UserInterceptor();
 
         UserService proxy = ProxyBeanFactory.getBean(userService, myInterceptor);
-//        UserService proxy = (UserService) ProxyBeanUtils.getBean(userService, myInterceptor);
-        System.out.println(proxy);
 
-//        User user = new User("张三", 18);
-//
-//        proxy.printUser(user);
-//        System.out.println(user);
+        User user = new User("张三", 18);
+
+        proxy.printUser(user);
     }
 
 }

@@ -8,12 +8,6 @@ package com.lsz.proxy.jdk;
 public class ProxyBeanFactory {
 
     public static <T> T getBean(T obj,MyInterceptor myInterceptor){
-        T result = (T) ProxyBeanUtils.getBean(obj, myInterceptor);
-        System.out.println("ProxyBeanFactory.getBean" + result);
-        return result;
+        return (T) ProxyBeanUtils.getBean(obj, myInterceptor);
     }
-
-//    public static UserService getBean(Object obj,MyInterceptor myInterceptor){
-//        return (UserService)ProxyBeanUtils.getBean(obj, myInterceptor);
-//    }
 }

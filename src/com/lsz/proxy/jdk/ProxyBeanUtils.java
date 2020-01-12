@@ -14,7 +14,7 @@ public class ProxyBeanUtils implements InvocationHandler {
     /**
      * 被代理对象
      */
-    private Object object = null;
+    private Object object;
 
     /**
      * 拦截器
@@ -53,31 +53,25 @@ public class ProxyBeanUtils implements InvocationHandler {
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
 
-        System.out.println("method"+method);
-        System.out.println("objects"+objects);
-
         Object result = null;
 
         // 异常标识
         boolean exceptionFlag = false;
 
-        // before 方法
-//        myInterceptor.before(o);
+        myInterceptor.before(this.object);
 
         try{
-            result = method.invoke(o, objects);
+            result = method.invoke(this.object, objects);
         }catch (Exception e){
-            System.out.println(e);
-            System.out.println("******** 运行过程中发生异常 ************");
             exceptionFlag = true;
         }finally {
-//            myInterceptor.after(o);
+            myInterceptor.after(this.object);
         }
 
         if(exceptionFlag){
-//            myInterceptor.afterThrowing(o);
+            myInterceptor.afterThrowing(this.object);
         }else {
-//            myInterceptor.afterRunning(o);
+            myInterceptor.afterRunning(this.object);
         }
         return result;
     }
