@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * @description: JDK 动态代理执行流程
+ * @description: 通过 JDK动态代理 模拟实现AOP拦截器 执行流程
  * @author: Lishuzhen
  * @create: 2020-01-12 19:13
  */
@@ -44,14 +44,14 @@ public class ProxyBeanUtils implements InvocationHandler {
 
     /**
      * 代理方法
-     * @param o 代理对象
+     * @param proxy 代理对象
      * @param method 代理方法
      * @param objects 参数
      * @return
      * @throws Throwable
      */
     @Override
-    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] objects) throws Throwable {
 
         Object result = null;
 
@@ -61,6 +61,11 @@ public class ProxyBeanUtils implements InvocationHandler {
         myInterceptor.before(this.object);
 
         try{
+            /**
+             * 注意：invoke 方法中的参数是 被代理对象 而不是代理对象
+             *  如果此处传参传入代理对象时，会陷入死循环，并抛出
+             *  java.lang.reflect.InvocationTargetException
+             */
             result = method.invoke(this.object, objects);
         }catch (Exception e){
             exceptionFlag = true;
